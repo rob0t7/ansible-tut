@@ -30,3 +30,9 @@ $ ansible -i hosts all -m ping
 ```
 
 5. Start writing sites.yml file
+
+```YAML
+---
+- name: apply common configuration to all nodes
+  hosts
+```

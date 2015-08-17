@@ -29,4 +29,44 @@ names accordingly.
 $ ansible -i hosts all -m ping
 ```
 
-5. Start writing sites.yml file
+5. Create common playbook for all servers (branch: *part1*)
+
+site.yml
+```YAML
+---
+# Applies the whole application stack to all nodes
+
+- name: apply common configuration to all nodes
+  hosts: all
+  roles:
+    - common
+
+```
+
+roles/common/tasks/main.yml
+
+```YAML
+---
+# This playbook contains common plays that will be run on all nodes
+
+- name: Install EPEL
+  sudo: yes
+  yum: name=epel-release state=present
+
+- name: Install NTP
+  sudo: yes
+  yum: name=ntp state=present
+  tags: ntp
+
+- name: Setup Timezone
+  sudo: yes
+  command: timedatectl set-timezone America/Toronto
+  tags: ntp
+  notify: restart ntp
+
+- name: Start the ntp service
+  sudo: yes
+  service: name=ntpd state=started enabled=yes
+  tags: ntp
+
+```

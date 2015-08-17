@@ -1,0 +1,7 @@
+---
+# Applies the whole application stack to all nodes
+
+- name: apply common configuration to all nodes
+  hosts: all
+  roles:
+    - common

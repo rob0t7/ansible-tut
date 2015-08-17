@@ -5,3 +5,8 @@
   hosts: all
   roles:
     - common
+
+- name: configure the webservers
+  hosts: webservers
+  roles:
+    - web

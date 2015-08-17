@@ -1,0 +1,10 @@
+---
+# These tasks install nginx
+
+- name: Install nginx
+  sudo: yes
+  yum: name=nginx state=present
+
+- name: Enable nginx service
+  sudo: yes
+  service: name=nginx state=started enabled=yes

@@ -70,3 +70,32 @@ roles/common/tasks/main.yml
   tags: ntp
 
 ```
+
+6. Install and configure nginx
+
+modify site.yml
+
+```YAML
+
+- name: configure the webservers
+  hosts: webservers
+  roles:
+    - web
+
+```
+
+roles/web/tasks/main.yml
+
+```YAML
+---
+# These tasks install nginx
+
+- name: Install nginx
+  sudo: yes
+  yum: name=nginx state=present
+
+- name: Enable nginx service
+  sudo: yes
+  service: name=nginx state=started enabled=yes
+
+```

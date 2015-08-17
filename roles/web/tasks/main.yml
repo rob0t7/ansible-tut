@@ -16,6 +16,10 @@
     - sites-enabled
     - sites-available
 
+- name: Create deployment directory
+  become: yes
+  file: dest=/var/www/lighthousedemo state=directory owner=nginx group=nginx
+
 - name: Copy nginx Configuration
   become: yes
   template: src=lighthousedemo.ca.conf.j2 dest=/etc/nginx/sites-available/lighthousedemo.ca.conf owner=root group=root
@@ -53,3 +57,7 @@
     src: nginx.conf.j2
     dest: /etc/nginx/nginx.conf
   notify: restart nginx
+
+- name: Copy over html file
+  become: yes
+  file: src=index.html dest=/var/www/lighthousedemo/index.html owner=nginx group=nginx

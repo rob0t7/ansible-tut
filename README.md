@@ -99,3 +99,15 @@ roles/web/tasks/main.yml
   service: name=nginx state=started enabled=yes
 
 ```
+
+
+## Generating SSL key using OpenSSL
+
+```SHELL
+$ openssl genrsa -des3 -out lighthouse.key 2048
+$ openssl req -new -key lighthouse.key -out lighthouse.csr
+$ cp lighthouse.key lighthouse.key.orig
+$ openssl rsa -in lighthouse.key.orig -out lighthouse.key
+$ rm lighthouse.key.orig
+$ openssl x509 -req -days 365 -in lighthouse.csr -signkey lighthouse.key -out lighthouse.crt
+```

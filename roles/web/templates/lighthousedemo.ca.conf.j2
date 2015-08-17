@@ -1,0 +1,20 @@
+server {
+  listen 80;
+  server_name lighthousedemo.ca;
+  rewrite ^ https://$server_name$request_uri?;
+}
+
+server {
+  listen 443 ssl;
+  server_name lighthousedemo.ca;
+
+  ssl_certificate /etc/nginx/certificates/lighthouse.crt;
+  ssl_certificate_key /etc/nginx/certificates/lighthouse.key;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+
+  root /var/www/lighthousedemo;
+  index index.html;
+
+  location / {
+  }
+}
